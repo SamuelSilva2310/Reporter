@@ -1,0 +1,34 @@
+---
+  - name: setup the project
+    hosts: all
+    vars:
+      PROJECT_HOME: /root/ansible_test
+    tasks:
+      - name: Clone the github Repo
+        git:
+          repo: https://github.com/SamuelSilva2310/System-Reporter.git
+          dest: "{{project_home}}/"
+          force: yes
+          clone: yes
+          update: yes
+      
+      # Install Pip
+      - name: Install Pip 
+        apt:
+          name: python3-pip
+          state: latest
+
+      - name: Install virtualenv module
+        pip: 
+          name: virtualenv
+          state: latest
+      
+      - name: Create a Virtualenviroment and instal requirements
+        pip: 
+          virtualenv: "{{PROJECT_HOME}}/venv"
+          requirements: "{{PROJECT_HOME}}/requirements.txt"
+
+      - name: Make shell script runable
+        shell: "chmod +x {{PROJECT_HOME}}/run.sh"
+
+...

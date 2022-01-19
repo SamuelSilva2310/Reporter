@@ -1,0 +1,18 @@
+---
+  - name: Run program
+    hosts: all
+    vars:
+      PROJECT_HOME: /root/ansible_test
+      PERIOD_BETWEEN_CHECKS: 5
+      EXPORT_FILENAME: "{{inventory_hostname}}"
+    tasks:
+      - name: Debug
+        debug:
+          msg: "{{project_home}}/run.sh {{PERIOD_BETWEEN_CHECKS}} {{EXPORT_FILENAME}}"
+
+
+      - name: Run Program Using bash script
+        shell: "bash {{project_home}}/run.sh {{PERIOD_BETWEEN_CHECKS}} {{EXPORT_FILENAME}}"
+        args:
+          chdir: "{{project_home}}"
+...

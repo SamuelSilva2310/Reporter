@@ -1,0 +1,30 @@
+# visual studio code
+.vscode/
+
+# python
+env
+venv/
+virtualenv/
+__pycache__/
+.pytest_cache/
+.mypy_cache/
+build/
+dist/
+*.egg-info/
+docs/build_*
+.idea/
+.env
+.pickle
+
+
+#Project
+*.xlsx
+Output
+Input
+notes.txt
+exports/
+Exports/
+.ssh/
+Output/
+output/
+
