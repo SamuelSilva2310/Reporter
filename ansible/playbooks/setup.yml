@@ -34,6 +34,6 @@
           requirements: "{{project_path_remote}}/requirements.txt"
 
       - name: Make shell script runable
-        shell: "chmod +x {{project_path_remote}}/run.sh"
+        shell: "chmod +x {{project_path_remote}}/run.sh {{project_path_remote}}/stop.sh"
 
 ...

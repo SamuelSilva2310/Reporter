@@ -19,8 +19,8 @@
         changed_when: output.stdout | length == 0
 
       
-      - name: Debug Output
-        debug:
-          msg: "{{output}}"
+      # - name: Debug Output
+      #   debug:
+      #     msg: "{{output}}"
 ...
 

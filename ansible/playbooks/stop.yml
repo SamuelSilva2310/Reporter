@@ -2,10 +2,15 @@
   - name: Stop program
     hosts: all
     tasks:
+
+      - name: Run Stop bash Script
+        shell: "bash {{project_path_remote}}/stop.sh"
+        args:
+          chdir: "{{project_path_remote}}"
       
-      - name: Kill the process
-        ignore_errors: yes
-        shell: pkill -f main.py
+      # - name: Kill the process
+      #   ignore_errors: yes
+      #   shell: pkill -f main.py
       
       - name: Get the csv export File
         fetch:
