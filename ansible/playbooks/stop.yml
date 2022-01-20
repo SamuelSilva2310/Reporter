@@ -7,6 +7,9 @@
         shell: "bash {{project_path_remote}}/stop.sh"
         args:
           chdir: "{{project_path_remote}}"
+        register: output
+        changed_when: output.stdout | length == 0
+
       
       # - name: Kill the process
       #   ignore_errors: yes
