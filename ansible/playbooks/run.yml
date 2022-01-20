@@ -8,11 +8,19 @@
     tasks:
       - name: Debug
         debug:
-          msg: "{{project_home}}/run.sh {{PERIOD_BETWEEN_CHECKS}} {{EXPORT_FILENAME}}"
+          msg: "{{project_path_remote}}/run.sh {{PERIOD_BETWEEN_CHECKS}} {{EXPORT_FILENAME}}"
 
 
       - name: Run Program Using bash script
-        shell: "bash {{project_home}}/run.sh {{PERIOD_BETWEEN_CHECKS}} {{EXPORT_FILENAME}}"
+        shell: "bash {{project_path_remote}}/run.sh {{PERIOD_BETWEEN_CHECKS}} {{EXPORT_FILENAME}}"
         args:
-          chdir: "{{project_home}}"
+          chdir: "{{project_path_remote}}"
+        register: output
+        changed_when: output.stdout | length == 0
+
+      
+      - name: Debug Output
+        debug:
+          msg: "{{output}}"
 ...
+

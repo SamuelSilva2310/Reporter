@@ -9,7 +9,7 @@
       
       - name: Get the csv export File
         fetch:
-          src:  "{{project_home}}/Output/exports/{{inventory_hostname}}.csv"
+          src:  "{{project_path_remote}}/Output/exports/{{inventory_hostname}}.csv"
           dest: "{{playbook_dir}}/../exports/{{ ansible_date_time.epoch }}/{{inventory_hostname}}.csv"
           flat: yes
 ...

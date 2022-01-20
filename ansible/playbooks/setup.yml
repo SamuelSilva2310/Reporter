@@ -1,16 +1,21 @@
 ---
   - name: setup the project
     hosts: all
-    vars:
-      PROJECT_HOME: /root/ansible_test
     tasks:
-      - name: Clone the github Repo
-        git:
-          repo: https://github.com/SamuelSilva2310/System-Reporter.git
-          dest: "{{project_home}}/"
-          force: yes
-          clone: yes
-          update: yes
+
+      - name : Copy the project into host
+        copy:
+          src: "{{project_to_copy}}"
+          dest: "{{project_home_remote}}"
+
+
+      # - name: Clone the github Repo
+      #   git:
+      #     repo: https://github.com/SamuelSilva2310/System-Reporter.git
+      #     dest: "{{project_home_remote}}/"
+      #     force: yes
+      #     clone: yes
+      #     update: yes
       
       # Install Pip
       - name: Install Pip 
@@ -25,10 +30,10 @@
       
       - name: Create a Virtualenviroment and instal requirements
         pip: 
-          virtualenv: "{{PROJECT_HOME}}/venv"
-          requirements: "{{PROJECT_HOME}}/requirements.txt"
+          virtualenv: "{{project_path_remote}}/venv"
+          requirements: "{{project_path_remote}}/requirements.txt"
 
       - name: Make shell script runable
-        shell: "chmod +x {{PROJECT_HOME}}/run.sh"
+        shell: "chmod +x {{project_path_remote}}/run.sh"
 
 ...
