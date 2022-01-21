@@ -10,11 +10,6 @@
         register: output
         changed_when: output.stdout | length == 0
 
-      
-      # - name: Kill the process
-      #   ignore_errors: yes
-      #   shell: pkill -f main.py
-      
       - name: Get the csv export File
         fetch:
           src:  "{{project_path_remote}}/Output/exports/{{inventory_hostname}}.csv"

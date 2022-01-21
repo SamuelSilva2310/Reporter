@@ -2,25 +2,15 @@
   - name: Run program
     hosts: all
     vars:
-      PROJECT_HOME: /root/ansible_test
-      PERIOD_BETWEEN_CHECKS: 5
-      EXPORT_FILENAME: "{{inventory_hostname}}"
+      period_between_checks: 5
+      export_filename: "{{inventory_hostname}}"
     tasks:
-      - name: Debug
-        debug:
-          msg: "{{project_path_remote}}/run.sh {{PERIOD_BETWEEN_CHECKS}} {{EXPORT_FILENAME}}"
-
-
+      
       - name: Run Program Using bash script
-        shell: "bash {{project_path_remote}}/run.sh {{PERIOD_BETWEEN_CHECKS}} {{EXPORT_FILENAME}}"
+        shell: "bash {{project_path_remote}}/run.sh {{period_between_checks}} {{export_filename}}"
         args:
           chdir: "{{project_path_remote}}"
         register: output
         changed_when: output.stdout | length == 0
-
-      
-      # - name: Debug Output
-      #   debug:
-      #     msg: "{{output}}"
 ...
 
