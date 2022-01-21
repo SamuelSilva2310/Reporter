@@ -2,7 +2,7 @@ import argparse
 import csv
 import os
 import config
-from ReportMaker.Reporter import Reporter
+from reporter.Reporter import Reporter
 
 
 def handle_args():
