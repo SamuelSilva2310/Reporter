@@ -1,6 +1,8 @@
 ---
   - name: Stop report collector
     hosts: all
+    vars:
+      export_folder: "{{ansible_date_time.iso8601}}"
     tasks:
 
       - name: Stop report collector
@@ -14,13 +16,13 @@
         become: true
         fetch:
           src:  "{{ remote_project_path }}/Output/exports/{{ inventory_hostname }}.csv"
-          dest: "{{ playbook_dir }}/../exports/{{ exports_directory }}/{{ inventory_hostname }}.csv"
+          dest: "{{ playbook_dir }}/../exports/{{ export_folder }}/{{ inventory_hostname }}.csv"
           flat: yes
         when: output.changed
 
       - name: Create Excel Report
         delegate_to: 127.0.0.1
         run_once: true
-        shell: "bash {{ playbook_dir }}/../../make_report.sh {{exports_directory}} {{report_filename}}"
+        shell: "bash {{ playbook_dir }}/../../make_report.sh {{export_folder}} {{report_filename}}"
 
 ...

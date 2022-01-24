@@ -4,8 +4,7 @@ all:
     axess311.axiros.kjoo.net:
   vars:
 
-    exports_directory: TesteExportDir
-    report_filename: Report
+    report_filename: report
     period_between_checks: 5
 
     ansible_user: root
