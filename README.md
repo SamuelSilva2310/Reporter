@@ -24,12 +24,12 @@ To run execute:
 ```sh
 ansible-playbook -i <path_to_inventory.yml> <path_to_playbook_run.yml>
 ```
-Ansible will check if the program is already running on the hostm if not it will start the program and return **CHANGED**. If it is already running ansible will simply return **OK**
+Ansible will check if the program is already running on the host if not it will start the program and return **CHANGED**. If it is already running ansible will simply return **OK**
 
 
-### **Stoping Collector**
+### **Stopping Collector**
 
-When Stoping, ansible will make sure the collector is running on the host ans kill the process, after doing so it will collect all (.csv Export) from the hosts into a local folder.
+When Stopping, ansible will make sure the collector is running on the host ans kill the process, after doing so it will collect all (.csv Export) from the hosts into a local folder.
 
 To run execute:
 ```sh
