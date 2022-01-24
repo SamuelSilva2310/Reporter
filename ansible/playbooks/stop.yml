@@ -14,7 +14,13 @@
         become: true
         fetch:
           src:  "{{ remote_project_path }}/Output/exports/{{ inventory_hostname }}.csv"
-          dest: "{{ playbook_dir }}/../exports/{{ ansible_date_time.epoch }}/{{ inventory_hostname }}.csv"
+          dest: "{{ playbook_dir }}/../exports/{{ exports_directory }}/{{ inventory_hostname }}.csv"
           flat: yes
         when: output.changed
+
+      - name: Create Excel Report
+        delegate_to: 127.0.0.1
+        run_once: true
+        shell: "bash {{ playbook_dir }}/../../make_report.sh {{exports_directory}} {{report_filename}}"
+
 ...
