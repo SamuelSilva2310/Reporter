@@ -24,5 +24,6 @@
         delegate_to: 127.0.0.1
         run_once: true
         shell: "bash {{ playbook_dir }}/../../make_report.sh {{export_folder}} {{report_filename}}"
+        when: output.changed
 
 ...
