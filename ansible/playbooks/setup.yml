@@ -1,23 +1,13 @@
 ---
-  - name: setup the project
+  - name: Project Setup
     hosts: all
     tasks:
 
-      - name : Copy the project into host
+      - name : Copy project into host
         copy:
-          src: "{{project_to_copy}}"
-          dest: "{{project_home_remote}}"
-
-
-      # - name: Clone the github Repo
-      #   git:
-      #     repo: https://github.com/SamuelSilva2310/System-Reporter.git
-      #     dest: "{{project_home_remote}}/"
-      #     force: yes
-      #     clone: yes
-      #     update: yes
+          src: "{{ playbook_dir }}/../reporter"
+          dest: "{{ remote_project_home }}"
       
-      # Install Pip
       - name: Install Pip 
         apt:
           name: python3-pip
@@ -28,12 +18,18 @@
           name: virtualenv
           state: latest
       
-      - name: Create a Virtualenviroment and instal requirements
+      - name: Create venv and instal requirements
         pip: 
-          virtualenv: "{{project_path_remote}}/venv"
-          requirements: "{{project_path_remote}}/requirements.txt"
+          virtualenv: "{{ remote_project_path }}/venv"
+          requirements: "{{ remote_project_path }}/requirements.txt"
 
-      - name: Make shell script runable
-        shell: "chmod +x {{project_path_remote}}/run.sh {{project_path_remote}}/stop.sh"
+      - name: Allow start.sh to be runable
+        file:
+          path: "{{ remote_project_path }}/start.sh"
+          mode: "0755"
 
+      - name: Allow stop.sh to be runable
+        file:
+          path: "{{ remote_project_path }}/stop.sh"
+          mode: "0755"
 ...

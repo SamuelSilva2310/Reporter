@@ -1,0 +1,12 @@
+---
+  - name: Start report collector
+    hosts: all
+    tasks:
+      
+      - name: Start report collector
+        shell: "bash {{ remote_project_path }}/start.sh {{ period_between_checks }} {{ inventory_hostname }}"
+        args:
+          chdir: "{{ remote_project_path }}"
+        register: output
+        changed_when: output.stdout | length == 0
+...

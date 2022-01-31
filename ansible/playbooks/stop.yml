@@ -1,18 +1,29 @@
 ---
-  - name: Stop program
+  - name: Stop report collector
     hosts: all
+    vars:
+      export_folder: "{{ansible_date_time.iso8601}}"
     tasks:
 
-      - name: Run Stop bash Script
-        shell: "bash {{project_path_remote}}/stop.sh"
+      - name: Stop report collector
+        shell: "bash {{ remote_project_path }}/stop.sh"
         args:
-          chdir: "{{project_path_remote}}"
+          chdir: "{{ remote_project_path  }}"
         register: output
         changed_when: output.stdout | length == 0
-
-      - name: Get the csv export File
+      
+      - name: Fetch CSV export
+        become: true
         fetch:
-          src:  "{{project_path_remote}}/Output/exports/{{inventory_hostname}}.csv"
-          dest: "{{playbook_dir}}/../exports/{{ ansible_date_time.epoch }}/{{inventory_hostname}}.csv"
+          src:  "{{ remote_project_path }}/Output/exports/{{ inventory_hostname }}.csv"
+          dest: "{{ playbook_dir }}/../exports/{{ export_folder }}/{{ inventory_hostname }}.csv"
           flat: yes
+        when: output.changed
+
+      - name: Create Excel Report
+        delegate_to: 127.0.0.1
+        run_once: true
+        shell: "bash {{ playbook_dir }}/../../make_report.sh {{export_folder}} {{report_filename}}"
+        when: output.changed
+
 ...

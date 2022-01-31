@@ -19,7 +19,6 @@ docs/build_*
 
 #Project
 *.xlsx
-*.txt
 .ssh/
 Input
 exports/

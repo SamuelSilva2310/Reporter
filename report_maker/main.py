@@ -3,6 +3,8 @@ import csv
 import os
 import config
 from reporter.Reporter import Reporter
+import pathlib
+
 
 
 def handle_args():
@@ -13,7 +15,7 @@ def handle_args():
     """
     parser = argparse.ArgumentParser(description='Resource Reporter')
     parser.add_argument('-i', '--input', dest='input_path', help='Input location of csv exports', required=True)
-    parser.add_argument('-o', '--output', dest='output_path', help='Output location and filename', required=True)
+    parser.add_argument('-o', '--output', dest='output_filename', help='Output filename of excel report', required=True)
 
     return parser.parse_args(), parser
 
@@ -34,9 +36,11 @@ def main():
     for file_path,filename in zip(data_files,filenames):
         reporter.write(file_path,filename)
 
-    if not os.path.exists(config.OUTPUT_DIR):
-        os.mkdir(config.OUTPUT_DIR)
-    path = os.path.join(config.OUTPUT_DIR,arguments.output_path)
+    output_path = os.path.join(pathlib.Path(__file__).parent.parent.resolve(),config.OUTPUT_DIR)
+    if not os.path.exists(output_path):
+        os.mkdir(output_path)
+
+    path = os.path.join(output_path,arguments.output_filename)
     reporter.save(path)
 
 main()
